@@ -64,8 +64,6 @@ const images = [
   },
 ];
 
-
-
 // Implementation using Fancybox:
 
 // const gallery = document.querySelector(".gallery");
@@ -106,16 +104,33 @@ const galleryMarkup = images
   )
   .join("");
 
+gallery.insertAdjacentHTML("beforeend", galleryMarkup);
+
+const modalClose = {
+  onShow: (instance) => {
+    instance.element().querySelector(".close-btn").onclick = instance.close;
+  }
+}
+
 gallery.addEventListener("click", (event) => {
+  event.preventDefault();
   const link = event.target.closest(".gallery-link");
   if (!link) return;
-  event.preventDefault();
-  modal = basicLightbox.create(`
-        <div>
+
+  const modalInstance = basicLightbox.create(`
+        <div class="modal">
+        <button class="prev-btn"><</button>
 		    <img width="1112" height="640" src="${link.href}">
+        <button class="close-btn">✖</button>
+        <button class="next-btn">></button>
         </div>
-	`).show()
+	`, modalClose)
+.show()
   });
+
+
+
+
 
   
 
