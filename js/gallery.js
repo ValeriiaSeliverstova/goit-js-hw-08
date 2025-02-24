@@ -68,32 +68,11 @@ const images = [
 
 // Implementation using Fancybox:
 
-const gallery = document.querySelector(".gallery");
-const galleryMarkup = images
-  .map(
-    ({ preview, original, description }) => `<li class="gallery-item">
-  <a class="gallery-link" href="${original}" data-fancybox="gallery" data-caption="${description}">
-    <img
-      class="gallery-image"
-      src="${preview}"
-      data-source="${original}"
-      alt="${description}"
-      data-lightbox="${description}"
-    />
-  </a>
-</li>`
-  )
-  .join("");
-
-gallery.insertAdjacentHTML("beforeend", galleryMarkup);
-
-// Implementation without prev/next buttons, but with basicLightbox:
-
 // const gallery = document.querySelector(".gallery");
 // const galleryMarkup = images
 //   .map(
 //     ({ preview, original, description }) => `<li class="gallery-item">
-//   <a class="gallery-link" href="${original}">
+//   <a class="gallery-link" href="${original}" data-fancybox="gallery" data-caption="${description}">
 //     <img
 //       class="gallery-image"
 //       src="${preview}"
@@ -106,16 +85,37 @@ gallery.insertAdjacentHTML("beforeend", galleryMarkup);
 //   )
 //   .join("");
 
-// gallery.addEventListener("click", (event) => {
-//   const link = event.target.closest(".gallery-link");
-//   if (!link) return;
-//   event.preventDefault();
-//   modal = basicLightbox.create(`
-//         <div>
-// 		    <img width="1112" height="640" src="${link.href}">
-//         </div>
-// 	`).show()
-//   });
+// gallery.insertAdjacentHTML("beforeend", galleryMarkup);
+
+// Implementation without prev/next buttons, but with basicLightbox:
+
+const gallery = document.querySelector(".gallery");
+const galleryMarkup = images
+  .map(
+    ({ preview, original, description }) => `<li class="gallery-item">
+  <a class="gallery-link" href="${original}">
+    <img
+      class="gallery-image"
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"
+      data-lightbox="${description}"
+    />
+  </a>
+</li>`
+  )
+  .join("");
+
+gallery.addEventListener("click", (event) => {
+  const link = event.target.closest(".gallery-link");
+  if (!link) return;
+  event.preventDefault();
+  modal = basicLightbox.create(`
+        <div>
+		    <img width="1112" height="640" src="${link.href}">
+        </div>
+	`).show()
+  });
 
   
 
