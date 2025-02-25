@@ -114,15 +114,13 @@ const modalClose = {
 
 gallery.addEventListener("click", (event) => {
   event.preventDefault();
-  const link = event.target.closest(".gallery-link");
-  if (!link) return;
+  const img = event.target.closest("img");
+  if (!img) return;
 
   const modalInstance = basicLightbox.create(`
         <div class="modal">
-        <button class="prev-btn"><</button>
-		    <img width="1112" height="640" src="${link.href}">
+		    <img width="1112" height="640" src="${img.dataset.source}">
         <button class="close-btn">✖</button>
-        <button class="next-btn">></button>
         </div>
 	`, modalClose)
 .show()
